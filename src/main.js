@@ -10,7 +10,6 @@ $(function() {
     canvas.freeDrawingBrush.color = "black";
     canvas.freeDrawingBrush.width = 10;
     canvas.renderAll();
-    //setup listeners 
     canvas.on('mouse:up', function(e) {
         getFrame();
         mousedown = false
@@ -19,16 +18,12 @@ $(function() {
         mousedown = true
     });
     canvas.on('mouse:move', function(e) {
-        recordCoor(e)
+        recordCoordinate(e)
     });
 })
 
 
-/*
-set the table of the predictions 
-*/
-function setTable(top5, probs) {
-    //loop over the predictions 
+function setPredictionList(top5, probs) {
     for (var i = 0; i < top5.length; i++) {
         let sym = document.getElementById('sym' + (i + 1))
         let prob = document.getElementById('prob' + (i + 1))
@@ -39,7 +34,7 @@ function setTable(top5, probs) {
 }
 
 
-function recordCoor(event) {
+function recordCoordinate(event) {
     var pointer = canvas.getPointer(event.e);
     var posX = pointer.x;
     var posY = pointer.y;
@@ -50,7 +45,7 @@ function recordCoor(event) {
 }
 
 
-function getMinBox() {
+function getBoundingBox() {
     var coorX = coordinates.map(function(p) {
         return p.x
     });
@@ -66,8 +61,6 @@ function getMinBox() {
         x: Math.max.apply(null, coorX),
         y: Math.max.apply(null, coorY)
     }
-
-    //return as strucut 
     return {
         min: min_coordinates,
         max: max_coordinates
@@ -75,7 +68,7 @@ function getMinBox() {
 }
 
 function getImageData() {
-    const mbb = getMinBox()
+    const mbb = getBoundingBox()
 
     const dpi = window.devicePixelRatio
     const imgData = canvas.contextContainer.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
@@ -93,7 +86,7 @@ function getFrame() {
         const indices = findIndicesOfMax(pred, 5)
         const probs = findTopValues(pred, 5)
         const names = getclasses(indices)
-        setTable(names, probs)
+        setPredictionList(names, probs)
     }
 
 }
@@ -125,12 +118,12 @@ function success(data) {
 function findIndicesOfMax(inp, count) {
     var outp = [];
     for (var i = 0; i < inp.length; i++) {
-        outp.push(i); // add index to output array
+        outp.push(i); 
         if (outp.length > count) {
             outp.sort(function(a, b) {
                 return inp[b] - inp[a];
-            }); // descending sort the output array
-            outp.pop(); // remove the last index (index of smallest element in output array)
+            });
+            outp.pop();
         }
     }
     return outp;
@@ -139,7 +132,6 @@ function findIndicesOfMax(inp, count) {
 function findTopValues(inp, count) {
     var outp = [];
     let indices = findIndicesOfMax(inp, count)
-    // show 5 greatest scores
     for (var i = 0; i < indices.length; i++)
         outp[i] = inp[indices[i]]
     return outp

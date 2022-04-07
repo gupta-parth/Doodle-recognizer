@@ -82,7 +82,7 @@ function getFrame() {
 
         const imgData = getImageData()
 
-        const pred = model.predict(preprocess(imgData)).dataSync()
+        const pred = model.predict(preprocessImageImageImage(imgData)).dataSync()
         const indices = findIndicesOfMax(pred, 5)
         const probs = findTopValues(pred, 5)
         const names = getclasses(indices)
@@ -139,7 +139,7 @@ function findTopValues(inp, count) {
 
 
 
-function preprocess(imgData) {
+function preprocessImageImageImage(imgData) {
     return tf.tidy(() => {
         let tensor = tf.browser.fromPixels(imgData, numChannels = 1)
         

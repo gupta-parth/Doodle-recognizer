@@ -21,21 +21,64 @@
 <body>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1"><h1>Drawer</h1></span>
+          <span class="navbar-brand mb-0 h1" style="padding-left:10px"><h1>Draw-it</h1></span>
         </div>
       </nav>
-      <div class="row">
-        <div class="col" style ='margin-left:100px;'>
+      <div>
+        <div style ='margin:50px;'>
       <h4 id ='status' >Loading Model... </h4>	  
       <canvas id="canvas" width="300" height="300" class="canvas" style="border:1px solid #b9bfc9;margin-top:25px;"></canvas>
-      <div class="btn-group" style = 'margin-top:40px; '>
-      <input type="range" min="5" max="20" value="10" class="slider" id="myRange" style ='margin-top:20px;'>
-      <button type="button" class="btn btn-outline-primary" onclick ='erase()' style ='margin-left:10px;' disabled>Clear</button>
-          </div>   
+      <h6 style="margin-top:50px;">Stroke size</h6>
+       <div class="btn-group">
+            <input type="range" min="5" max="20" value="10" class="slider" id="myRange">
+            <button type="button" class="btn btn-outline-primary" onclick ='erase()' style ='margin-left:10px;' disabled>Clear</button>
+        </div>   
       </div>
+      <div>
+        <div>
+            <ol style="margin-left:30px;">
+            <li>
+                <em id = "sym1"></em>
+                <span id = "prob1" ></span>
+            </li>
+            <li>
+                <em id = "sym2"></em>
+                <span id = "prob2"></span>
+            </li>
+            <li>
+                <em id = "sym3"></em>
+                <span id = "prob3"></span>
+            </li>
+            <li>
+                <em id = "sym4"></em>
+                <span id = "prob4"></span>
+            </li>
+            <li>
+                <em id = "sym5"></em>
+                <span id = "prob5"></span>
+            </li>
+            </ol>
+        </div>
+        <div style="position: fixed; bottom: 350px; right: 100px; width: 800px;">
+            <h2>About</h2>
+            <p>This is a simple sketch recognizer created using Google's QuickDraw dataset.
+                100 classes are trained using a CNN with about 5000 images for each class. The 
+                model achieves an accuracy of about 90%. 
+                <div></div>
+                Draw on the canvas and the model will show the top-5 predictions!
+            </p>
+            <h2>Next Steps</h2>
+            <ul>
+                <li style="padding:5px">Make a chart to show the top 5 (bar chart maybe)</li>
+                <li style="padding:5px">Show metrics regarding the model</li>
+                <li style="padding:5px">Make a better UI</li>
+                <li style="padding:5px">Implement different models to compare</li>
+            </ul>
+        </div>
+    </div>
 </body>
 <script>
 	console.log('starting');
-	start('en')
+	start()
 </script
 </html>

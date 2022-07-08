@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.probs {
+    margin-left: 1%;
+    margin-top: 4%;
+}
+
+#canvas {
+    border: 2px solid;
+}
